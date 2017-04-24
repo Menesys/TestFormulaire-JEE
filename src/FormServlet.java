@@ -39,15 +39,17 @@ protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws S
     
     SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
     Date d= null;
-	try {
-		if(isValid(req.getParameter("naissance"))){			
-			d = formatter.parse(req.getParameter("naissance"));
-		} else {
-			throw new Exception("La date n'est pas valide");
-		}
-	} catch (Exception e1) {
-		e1.printStackTrace();
-		erreur.add("La date n'est pas valide");
+    if(req.getParameter("naissance") != null && !req.getParameter("naissance").isEmpty()){
+    	try {
+    		if(isValid(req.getParameter("naissance"))){			
+    			d = formatter.parse(req.getParameter("naissance"));
+    		} else {
+    			throw new Exception("La date n'est pas valide");
+    		}
+    	} catch (Exception e1) {
+    		e1.printStackTrace();
+    		erreur.add("La date n'est pas valide");
+        }
 	}
 	
     User user = new User(req.getParameter("nom"), req.getParameter("prenom"), d, email, motDePasse);

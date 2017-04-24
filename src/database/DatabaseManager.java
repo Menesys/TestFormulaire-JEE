@@ -18,11 +18,11 @@ public class DatabaseManager {
 		} catch ( ClassNotFoundException e ) {
 
 		}
-		String url = "jdbc:mysql://localhost:3306/testFormulaire";
+		String url = "jdbc:mysql://localhost:3306/myjeedb";
 
-		String utilisateur = "root";
+		String utilisateur = "appjee";
 
-		String motDePasse = "";
+		String motDePasse = "appjee";
 		
 		try {
 			connection = DriverManager.getConnection( url, utilisateur, motDePasse );

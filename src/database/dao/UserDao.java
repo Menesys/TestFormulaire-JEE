@@ -26,7 +26,7 @@ public class UserDao {
 	
 	public void insertUser(User user){
 		try {
-			PreparedStatement statement = databaseManager.getConnection().prepareStatement("INSERT INTO user (nom, prenom, dnaissance, email, mdp) values (?,?,?,?,?)");
+			PreparedStatement statement = databaseManager.getConnection().prepareStatement("INSERT INTO USER (FIRSTNAME, LASTNAME, BIRTHDAY, EMAIL, PASSWORD, CREATED) values (?,?,?,?,?,?)");
 			statement.setString(1, user.getNom());
 			statement.setString(2, user.getPrenom());
 			Date d = null;
@@ -36,7 +36,9 @@ public class UserDao {
 			statement.setDate(3, d);
 			statement.setString(4, user.getEmail());
 			statement.setString(5, user.getMdp());
-			statement.execute();
+			statement.setDate(6, new Date(new java.util.Date().getTime()));
+			statement.execute();			
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -45,7 +47,7 @@ public class UserDao {
 	public boolean checkEmail(User user){
 		PreparedStatement statement;
 		try {
-			statement = databaseManager.getConnection().prepareStatement("Select 1 From user where email = ?");
+			statement = databaseManager.getConnection().prepareStatement("Select 1 From USER where EMAIL = ?");
 			statement.setString(1, user.getEmail());
 			ResultSet result = statement.executeQuery();
 			return !result.first();
